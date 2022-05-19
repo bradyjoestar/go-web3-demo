@@ -2,38 +2,37 @@ package main
 
 import (
 	"fmt"
-	"math/big"
-
 	"github.com/umbracle/ethgo"
-	"github.com/umbracle/ethgo/abi"
-	"github.com/umbracle/ethgo/contract"
 	"github.com/umbracle/ethgo/jsonrpc"
+	"github.com/umbracle/ethgo/wallet"
 )
 
-func handleErr(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
+var (
+	walletFile = "wallet.json"
+	password   = "123"
+)
 
 // call a contract
 func main() {
-	var functions = []string{
-		"function totalSupply() view returns (uint256)",
+	key, _ := importWallet()
+	fmt.Println(key.Address())
+
+	c, err := jsonrpc.NewClient("http://localhost:8545")
+	handleErr(err)
+	found, err := c.Eth().GetBalance(key.Address(), ethgo.Latest)
+	handleErr(err)
+
+	fmt.Println(found.String())
+}
+
+func importWallet() (ethgo.Key, error) {
+	key, err := wallet.NewJSONWalletFromFile(walletFile, password)
+	handleErr(err)
+	return key, nil
+}
+
+func handleErr(err error) {
+	if err != nil {
+		panic(err.Error())
 	}
-
-	abiContract, err := abi.NewABIFromList(functions)
-	handleErr(err)
-
-	// Matic token
-	addr := ethgo.HexToAddress("0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0")
-
-	client, err := jsonrpc.NewClient("https://mainnet.infura.io")
-	handleErr(err)
-
-	c := contract.NewContract(addr, abiContract, contract.WithJsonRPC(client.Eth()))
-	res, err := c.Call("totalSupply", ethgo.Latest)
-	handleErr(err)
-
-	fmt.Printf("TotalSupply: %s", res["totalSupply"].(*big.Int))
 }
