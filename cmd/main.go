@@ -16,10 +16,14 @@ func main() {
 	c, err := jsonrpc.NewClient("http://172.17.0.1:8545")
 	handleErr(err)
 
-	block, err := c.Eth().GetBlockByNumber(60000, false)
-	fmt.Println(block.Timestamp)
-	fmt.Println("transactions")
-	fmt.Println(len(block.Transactions))
+	for i := 58720; i < 58740; i++ {
+		block, err := c.Eth().GetBlockByNumber(60000, false)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Printf("block height:%d, block time: %d, total transactions:%d",
+			i, block.Timestamp, len(block.Transactions))
+	}
 }
 
 func handleErr(err error) {
