@@ -17,7 +17,7 @@ func main() {
 	c, err := jsonrpc.NewClient("http://172.17.0.1:8545")
 	handleErr(err)
 
-	for i := 60910; i < 60960; i++ {
+	for i := 59000; i < 62000; i++ {
 		block, err := c.Eth().GetBlockByNumber(ethgo.BlockNumber(i), false)
 		if err != nil {
 			fmt.Println(err.Error())
