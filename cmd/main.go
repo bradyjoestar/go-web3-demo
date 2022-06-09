@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/umbracle/ethgo"
 	"github.com/umbracle/ethgo/jsonrpc"
+	"time"
 )
 
 var (
@@ -24,6 +25,7 @@ func main() {
 		}
 		fmt.Printf("block height:%d, block time: %d, total transactions:%d\n",
 			i, block.Timestamp, len(block.Transactions))
+		fmt.Println(time.Unix(int64(block.Timestamp), 0))
 
 		if len(block.Transactions) != 0 {
 			successNumber := 0
