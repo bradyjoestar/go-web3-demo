@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/umbracle/ethgo"
 	"github.com/umbracle/ethgo/jsonrpc"
 )
 
@@ -17,7 +18,7 @@ func main() {
 	handleErr(err)
 
 	for i := 58720; i < 58740; i++ {
-		block, err := c.Eth().GetBlockByNumber(60000, false)
+		block, err := c.Eth().GetBlockByNumber(ethgo.BlockNumber(i), false)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
