@@ -18,7 +18,7 @@ func main() {
 	handleErr(err)
 
 	for i := 59000; i < 62000; i++ {
-		block, err := c.Eth().GetBlockByNumber(ethgo.BlockNumber(i), false)
+		block, err := c.Eth().GetBlockByNumber(ethgo.BlockNumber(i), true)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
