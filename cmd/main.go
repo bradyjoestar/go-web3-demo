@@ -21,7 +21,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		fmt.Printf("block height:%d, block time: %d, total transactions:%d",
+		fmt.Printf("block height:%d, block time: %d, total transactions:%d\n",
 			i, block.Timestamp, len(block.Transactions))
 	}
 }
