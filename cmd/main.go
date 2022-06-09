@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/umbracle/ethgo"
 	"github.com/umbracle/ethgo/jsonrpc"
-	"github.com/umbracle/ethgo/wallet"
 )
 
 var (
@@ -14,21 +12,14 @@ var (
 
 // call a contract
 func main() {
-	key, _ := importWallet()
-	fmt.Println(key.Address())
 
-	c, err := jsonrpc.NewClient("http://localhost:8545")
-	handleErr(err)
-	found, err := c.Eth().GetBalance(key.Address(), ethgo.Latest)
+	c, err := jsonrpc.NewClient("http://172.17.0.1:8545")
 	handleErr(err)
 
-	fmt.Println(found.String())
-}
-
-func importWallet() (ethgo.Key, error) {
-	key, err := wallet.NewJSONWalletFromFile(walletFile, password)
-	handleErr(err)
-	return key, nil
+	block, err := c.Eth().GetBlockByNumber(60000, false)
+	fmt.Println(block.Timestamp)
+	fmt.Println("transactions")
+	fmt.Println(len(block.Transactions))
 }
 
 func handleErr(err error) {
