@@ -26,7 +26,7 @@ func main() {
 			i, block.Timestamp, len(block.Transactions))
 
 		if len(block.Transactions) != 0 {
-			if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[0].Hash); err != nil {
+			if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[0].Hash); err == nil {
 				fmt.Printf("block height:%d, receipt result is %d\n", i, receipt.Status)
 			}
 		}
