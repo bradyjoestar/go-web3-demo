@@ -25,8 +25,10 @@ func main() {
 		fmt.Printf("block height:%d, block time: %d, total transactions:%d\n",
 			i, block.Timestamp, len(block.Transactions))
 
-		if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[0].Hash); err != nil {
-			fmt.Printf("block height:%d, receipt result is %d\n", i, receipt.Status)
+		if len(block.Transactions) != 0 {
+			if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[0].Hash); err != nil {
+				fmt.Printf("block height:%d, receipt result is %d\n", i, receipt.Status)
+			}
 		}
 	}
 }
