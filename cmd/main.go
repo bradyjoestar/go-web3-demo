@@ -27,17 +27,17 @@ func main() {
 			i, block.Timestamp, len(block.Transactions))
 		fmt.Println(time.Unix(int64(block.Timestamp), 0))
 
-		if len(block.Transactions) != 0 {
-			successNumber := 0
-			for j := 0; j < len(block.Transactions); j++ {
-				if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[j].Hash); err == nil {
-					if receipt.Status == 1 {
-						successNumber++
-					}
-				}
-			}
-			fmt.Printf("block height:%d, success number is %d\n", i, successNumber)
-		}
+		//if len(block.Transactions) != 0 {
+		//	successNumber := 0
+		//	for j := 0; j < len(block.Transactions); j++ {
+		//		if receipt, err := c.Eth().GetTransactionReceipt(block.Transactions[j].Hash); err == nil {
+		//			if receipt.Status == 1 {
+		//				successNumber++
+		//			}
+		//		}
+		//	}
+		//	fmt.Printf("block height:%d, success number is %d\n", i, successNumber)
+		//}
 	}
 }
 
